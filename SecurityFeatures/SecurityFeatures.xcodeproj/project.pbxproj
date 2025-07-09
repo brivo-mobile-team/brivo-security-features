@@ -175,7 +175,7 @@
 				};
 			};
 			buildConfigurationList = DA8C3C4B2E1E645C00932527 /* Build configuration list for PBXProject "SecurityFeatures" */;
-			compatibilityVersion = "Xcode 15.0";
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
