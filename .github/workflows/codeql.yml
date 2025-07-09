@@ -49,7 +49,8 @@ jobs:
         xcodebuild build \
         -project GithubSecurity/GithubSecurity.xcodeproj \
         -scheme GithubSecurity \
-        -destination 'platform:iOS Simulator, id:4CC9F6B8-F97E-46ED-8853-0C5D01515F4F, OS:18.2, name:iPhone 16 Plus' \
+        -destination 'platform=iOS Simulator,name=iPhone 16 Plus' \
+        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
