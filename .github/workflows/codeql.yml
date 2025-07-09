@@ -29,8 +29,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Add this step to select a compatible Xcode version
-    - name: Select Xcode 15.x
+    # Select Xcode 16
+    - name: Select Xcode 16
       if: matrix.language == 'swift'
       uses: maxim-lobanov/setup-xcode@v1
       with:
@@ -45,7 +45,6 @@ jobs:
     - name: Build Swift project (manual)
       if: matrix.language == 'swift'
       run: |
-        # Changed the destination to a generic simulator and added code signing bypass
         xcodebuild build \
         -project GithubSecurity/GithubSecurity.xcodeproj \
         -scheme GithubSecurity \
@@ -56,3 +55,11 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+    # Upload CodeQL bundled database
+    - name: Upload CodeQL database bundle
+      if: matrix.language == 'swift'
+      uses: actions/upload-artifact@v4
+      with:
+        name: swift-codeql-database
+        path: /Users/runner/work/_temp/codeql_databases/swift.zip
