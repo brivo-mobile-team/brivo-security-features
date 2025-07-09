@@ -1,13 +1,13 @@
 //
-//  SecurityFeaturesUITestsLaunchTests.swift
-//  SecurityFeaturesUITests
+//  GithubSecurityUITestsLaunchTests.swift
+//  GithubSecurityUITests
 //
 //  Created by Adrian Somesan on 09.07.2025.
 //
 
 import XCTest
 
-final class SecurityFeaturesUITestsLaunchTests: XCTestCase {
+final class GithubSecurityUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

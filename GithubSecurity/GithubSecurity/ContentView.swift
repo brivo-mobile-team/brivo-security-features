@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  SecurityFeatures
+//  GithubSecurity
 //
 //  Created by Adrian Somesan on 09.07.2025.
 //
@@ -13,7 +13,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world! 123")
+            Text("Hello, world!")
         }
         .padding()
     }
