@@ -42,7 +42,7 @@ jobs:
         -project SecurityFeatures/SecurityFeatures.xcodeproj \
         -scheme SecurityFeatures \
         -sdk iphonesimulator \
-        -destination 'platform=iOS Simulator,name=iPhone 14'
+        -destination 'platform=iOS Simulator,name=iPhone 16'
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
