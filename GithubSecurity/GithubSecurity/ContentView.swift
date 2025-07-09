@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    let stripeSecret = "sk_test_1234567890abcdef"
+
     var body: some View {
         VStack {
             Image(systemName: "globe")
