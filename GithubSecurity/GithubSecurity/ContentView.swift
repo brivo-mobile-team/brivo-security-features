@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 
-    let stripeSecret = "sk_test_1234567890abcdef"
+    let stripeSecret = "sk_test_1234567890abcdef123456"
 
     var body: some View {
         VStack {
