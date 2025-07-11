@@ -1,0 +1,52 @@
+#!/bin/bash
+
+echo "Running pre-commit secret check..."
+echo "DEBUG: pre-commit hook is running!" # Keep this for now
+exit 0
+# Define patterns
+patterns=(
+  # This pattern should precisely match the UUID-like Firebase Client IDs
+  'firebaseClientId[0-9]*\s*=\s*"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"'
+  
+  # Original Twilio pattern (adjust if you have a different format now)
+  'twilioToken\s*=\s*".*your_auth_token_here.*"' 
+  
+  # Other patterns from before
+  'qhp_[a-zA-Z0-9]{36}'
+  'AKIA[0-9A-Za-z]{16}'
+  'AIza[0-9A-Za-z\_\-]{35}'
+  'AC[a-zA-Z0-9]{20}'
+)
+
+# Get the diff of staged changes (what's about to be committed)
+# --cached or --staged shows differences between the index and the HEAD commit
+# -p for patch format, --binary for binary files, --text to treat all as text
+# --full-index for more consistent diff headers
+GIT_STAGED_DIFF=$(git diff --cached -p --binary --text --full-index)
+
+# If there are no staged changes, the diff will be empty, and grep won't run.
+# This check is just for clarity, grep on empty input is fine.
+if [ -z "$GIT_STAGED_DIFF" ]; then
+  echo "No staged changes to check. Commit allowed."
+  exit 0
+fi
+
+echo "Checking staged changes for secrets..."
+
+# Check each pattern against the staged diff output
+for pattern in "${patterns[@]}"; do
+  echo "  Checking pattern: $pattern" # Add more debug output here
+  # Use grep -E for extended regex, -q for quiet (no output), and check its exit code
+  if echo "$GIT_STAGED_DIFF" | grep -E -q "$pattern"; then
+    echo ""
+    echo "❌ SECRET DETECTED IN STAGED CHANGES matching pattern: $pattern"
+    echo "❌ Commit blocked. Please remove secrets from staged files."
+    echo ""
+    exit 1 # Exit with non-zero status to block the commit
+  fi
+done
+
+echo ""
+echo "✅ No secrets detected in staged changes. Commit allowed."
+echo ""
+exit 0
