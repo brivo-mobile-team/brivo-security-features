@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 
-    let stripeSecret = "a111aa11-a111-11a1-aaaa-aa1111a11a11"
+    let firebaseClientID = "a111aa11-a111-11a1-aaaa-aa1111a11a11"
     let githubToken = "ghp_1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwx"
     let awsAccessKey = "AKIAIOSFODNN7EXAMPLE"
     let awsSecretKey = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
