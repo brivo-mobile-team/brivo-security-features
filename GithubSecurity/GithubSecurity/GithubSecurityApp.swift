@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct GithubSecurityApp: App {
+    let firebaseClientID = "a111aa11-a111-11a1-aaaa-aa1111a11a11"
     var body: some Scene {
         WindowGroup {
             ContentView()
