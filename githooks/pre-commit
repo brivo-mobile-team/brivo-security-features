@@ -2,14 +2,12 @@
 
 echo "Running pre-commit secret check..."
 echo "DEBUG: pre-commit hook is running!" # Keep this for now
-exit 0
+
 # Define patterns
 patterns=(
   # This pattern should precisely match the UUID-like Firebase Client IDs
   'firebaseClientId[0-9]*\s*=\s*"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"'
   
-  # Original Twilio pattern (adjust if you have a different format now)
-  'twilioToken\s*=\s*".*your_auth_token_here.*"' 
   
   # Other patterns from before
   'qhp_[a-zA-Z0-9]{36}'
