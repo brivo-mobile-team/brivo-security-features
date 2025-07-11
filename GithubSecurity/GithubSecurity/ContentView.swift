@@ -17,6 +17,7 @@ struct ContentView: View {
     let twilioSid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     let twilioToken = "your_auth_token_here_1234567890"
     let firebaseClientID2 = "a111aa11-a111-11a1-aaaa-aa1111a11a11"
+    let firebaseClientID3 = "a111aa11-a111-11a1-aaaa-aa1111a11a11"
 
     var body: some View {
         VStack {
