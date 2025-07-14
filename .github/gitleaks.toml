@@ -1,8 +1,45 @@
-title = "Gitleaks config for Firebase Client ID"
-description = "Detect Firebase client IDs in Swift or config files"
+# .github/gitleaks.toml
 
+# Specify the version of the Gitleaks config format
+# Recommended to include this for future compatibility.
+version = "8.0.0"
+
+# IMPORTANT: Set this to 'false' (or omit it, as 'false' is the default if not present).
+# This ensures that Gitleaks' built-in rules (which cover many common secrets like
+# GitHub PATs, AWS keys, etc.) will run IN ADDITION to your custom rules defined below.
+# If this is 'true', only rules in this file are used.
+do_not_override_builtin_rules = false
+
+
+# =============================================================================
+# Custom Rules for Your Specific Project/Organization Secrets
+# =============================================================================
+
+# Updated: Firebase Client ID (UUID style) - More Flexible Variable Naming
+# This regex now looks for the UUID pattern preceded by "firebaseClientId", "firebaseClientID",
+# or any variation with digits/D. It's more robust to variable naming changes.
 [[rules]]
-id = "firebase-client-id"
-description = "Firebase Client ID (UUID style)"
-regex = '''firebaseClientID\s*=\s*["']?[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}["']?'''
-tags = ["firebase", "custom"]
+  id = "firebase-client-id-flexible" # Changed ID to reflect flexibility
+  description = "Firebase Client ID (UUID style, flexible variable name)"
+  # Regex explanation:
+  # (?:[Ff]irebase[Cc]lient[Ii][DdD]?[0-9]*\s*=\s*["']?) : Non-capturing group for variable name.
+  #                                                     Handles "firebaseClientId", "firebaseClientID", etc., case-insensitively,
+  #                                                     with optional digits/D, and optional quotes.
+  # ([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}) : Captures the UUID value itself.
+  # (?:["']?) : Non-capturing group for optional trailing quote.
+  regex = '''(?:[Ff]irebase[Cc]lient[Ii][DdD]?[0-9]*\s*=\s*["']?)([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})(?:["']?)'''
+  tags = ["firebase", "custom", "api_key"]
+  # secretGroup = 1 # The UUID itself is in the first capturing group of this regex (group 1)
+
+
+# Example: Twilio Token (from earlier discussions, assuming a specific placeholder)
+# This rule specifically targets the exact placeholder text you used in your example.
+[[rules]]
+  id = "twilio-auth-token-placeholder" # Added ID for clarity
+  description = "Twilio Auth Token (Specific Placeholder)"
+  regex = '''(twilioToken\s*=\s*".*your_auth_token_here.*")'''
+  tags = ["api_key", "twilio", "custom_secret"]
+
+# =============================================================================
+# No need to add rules for common secrets like GitHub PATs (gho_).
+# Gitleaks' built-in rules will now handle them because 'do_not_override_builtin_rules' is false.
