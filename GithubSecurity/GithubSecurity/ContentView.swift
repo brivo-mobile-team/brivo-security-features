@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 
+    let githubToken = "ghp_1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwx"
 
     var body: some View {
         VStack {
